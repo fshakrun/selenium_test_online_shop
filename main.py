@@ -2,7 +2,8 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-driver = webdriver.Chrome(executable_path='C:\\Users\\asus\\PycharmProjects\\test_online_shop\\chromedriver.exe')
+# здесь, в (), указывается путь к chromedriver.exe
+driver = webdriver.Chrome()
 
 # переход на главную страницу
 driver.get('https://henderson.ru/')
@@ -23,7 +24,6 @@ user_pass = driver.find_element(By.XPATH, "//*[@name='password']")
 user_pass.send_keys("virleo777")
 time.sleep(2)
 
-
 # вход с помощью нажатия клавиши enter
 user_pass.send_keys(u'\ue007')
 time.sleep(10)
@@ -41,7 +41,7 @@ driver.execute_script("window.scrollTo(0, 200)")
 driver.save_screenshot('выдача.png')
 time.sleep(5)
 
-# удостоверяемся что выдача релевантна запросу
+# проверка релевантности выдачи запросу
 item_text = driver.find_element(By.XPATH, "//*[@class='card-product__name-link']")
 value_item_text = item_text.text
 search_item_results = value_item_text.split(" ")
@@ -64,19 +64,23 @@ time.sleep(3)
 add_to_basket = driver.find_element(By.XPATH, "//*[@class='select2-results__option select2-results__option--highlighted']").click()
 time.sleep(7)
 
-# делаем скрин того что товар добавлен
+# скриншот того что товар добавлен
 driver.save_screenshot('товар в корзине.png')
-time.sleep(5)
+time.sleep(6)
 
 # обновляем страницу
 driver.refresh()
 time.sleep(5)
 
-# переходим в корзину
+# переход в корзину
 driver.get('https://henderson.ru/cart/')
 driver.maximize_window()
-time.sleep(5)
+time.sleep(7)
 
 # скриншот корзины
 driver.save_screenshot('скрин корзины.png')
+time.sleep(5)
+
+# закрытие браузера
+driver.quit()
 
